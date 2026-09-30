@@ -14,6 +14,7 @@ settings = get_settings()
 engine = create_async_engine(
     settings.database_url,
     pool_pre_ping=True,
+    connect_args={"ssl": "require"},
 )
 
 AsyncSessionLocal = async_sessionmaker(
@@ -25,5 +26,4 @@ AsyncSessionLocal = async_sessionmaker(
 
 async def get_db() -> AsyncGenerator[AsyncSession, None]:
     async with AsyncSessionLocal() as session:
-        yield sessionø
-
+        yield session
